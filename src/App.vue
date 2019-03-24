@@ -1,31 +1,38 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
     <router-view/>
+    <footer class="footer">
+      <ul class="bar">
+        <li><router-link to='/'>流行</router-link></li>
+        <li><router-link to='/books'>书籍</router-link></li>
+        <li><router-link to='/like'>喜欢</router-link></li>
+      </ul>
+    </footer>
   </div>
 </template>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+*{
+  margin: 0;
+  padding: 0;
 }
-#nav {
-  padding: 30px;
+a,a:visited{
+  text-decoration:none;
+  color:black
 }
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
+.footer{
+  border-top: #f5f5f5 1px solid;
+  height: 44px;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
 }
-
-#nav a.router-link-exact-active {
-  color: #42b983;
+.bar{
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  height: 100%;
 }
 </style>
