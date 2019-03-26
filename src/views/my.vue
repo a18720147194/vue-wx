@@ -1,12 +1,12 @@
 <template>
   <div class="home">
-    like
+    我的
   </div>
 </template>
 
 <script>
 
 export default {
-  name: 'like'
+  name: 'my'
 }
 </script>

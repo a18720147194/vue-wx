@@ -19,9 +19,9 @@ export default new Router({
       component: () => import('./views/books.vue')
     },
     {
-      path: '/like',
-      name: 'like',
-      component: () => import('./views/like.vue')
+      path: '/my',
+      name: 'my',
+      component: () => import('./views/my.vue')
     }
   ]
 })

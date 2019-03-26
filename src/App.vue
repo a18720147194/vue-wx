@@ -5,7 +5,7 @@
       <ul class="bar">
         <li><router-link to='/'>流行</router-link></li>
         <li><router-link to='/books'>书籍</router-link></li>
-        <li><router-link to='/like'>喜欢</router-link></li>
+        <li><router-link to='/my'>喜欢</router-link></li>
       </ul>
     </footer>
   </div>
