@@ -17,46 +17,74 @@
     <center class="home-center">
       <movie :res='res' />
     </center>
+    <navi class="home-navi" :content='title' :isLeftdis='isLeftdis' :isRightdis='isRightdis'/>
   </div>
 </template>
 
 <script>
-import like from '../components/home/like'
+import like from '../components/like'
 import movie from '../components/home/movie'
-import { get } from '../api/http'
+import navi from '../components/home/navi'
+import { getNewest } from '../api/http'
+import { saveIndex, getIndex, saveMaxIndex, getMaxIndex } from '../utils/localStorage'
 export default {
   name: 'home',
   components: {
     like,
-    movie
+    movie,
+    navi
   },
   data () {
     return {
       res:null,
-      num:'08',
       month:'1',
       year:0,
       dateArr:['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'],
-      favNum: 0
+      favNum: 0,
+      title:'',
+      num:''
+    }
+  },
+  computed: {
+    isLeftdis () {
+      return getIndex()>=getMaxIndex()
+    },
+    isRightdis () {
+      return getIndex()<=1
     }
   },
   mounted () {
-    get().then((res)=>{
+    getNewest().then((res)=>{
       console.log(res)
       let data = res.data
       this.res = data
       this.favNum = data.fav_nums
+      this.title = data.title
+      this.num = this.shift(data.index)
+      saveMaxIndex(data.index)
+      saveIndex(data.index)
     })
-    let date = new Date()
-    this.year = date.getFullYear()
-    this.month = this.dateArr[date.getMonth()]
+    this.getDate()
+  },
+  methods: {
+    shift (num) {
+      if(num<=9){
+        return '0'+num
+      }else{
+        return ''+num
+      }
+    },
+    getDate () {
+      let date = new Date()
+      this.year = date.getFullYear()
+      this.month = this.dateArr[date.getMonth()]
+    }
   }
 }
 </script>
 <style lang='scss' scoped>
   .home-head{
     padding-top: 10px;
-    background:yellow;
     height: 40px;
     display: flex;
     justify-content: space-between;
@@ -82,8 +110,11 @@ export default {
     }
   }
   .home-center{
-      background:green;
       height: 500px;
   }    
-     
+  .home-navi{
+    position: fixed;
+    bottom: 80px;
+    width: 100%;
+  }
 </style>

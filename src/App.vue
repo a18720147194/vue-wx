@@ -16,6 +16,9 @@
   margin: 0;
   padding: 0;
 }
+#app{
+  width: 100%
+}
 a,a:visited{
   text-decoration:none;
   color:black
