@@ -1,9 +1,9 @@
 <template>
-  <div class="bar">
+  <div class="navi">
     <div>
-      <img :src="left" alt="">
+      <img :src="left" alt="" @click="next">
       <div>{{content}}</div>
-      <img :src="right" alt="">
+      <img :src="right" alt="" @click="prv">
     </div>
   </div>
 </template>
@@ -26,14 +26,23 @@ export default {
     right () {
       return this.isRightdis? rightdisimg:rightimg
     }
+  },
+  methods: {
+    prv () {
+      this.$emit('prv')
+    },
+    next () {
+      this.$emit('next')
+    }
   }
 }
 </script>
 
 <style lang='scss' scoped>
-  .bar{
+  .navi{
     height: 40px;
-    div{
+    >div{
+      margin: 0 auto;
       height: 40px;
       display:flex;
       flex-direction: row;
@@ -42,9 +51,10 @@ export default {
       font-size: 16px;
       background: #c4c1c1;
       border-radius: 5px;
+      width: 330px;
       img{
         width: 50px;
-        margin: 0 20px;
+        margin: 0 15px;
       }
     }
   }

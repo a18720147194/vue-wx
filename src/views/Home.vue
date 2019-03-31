@@ -11,28 +11,40 @@
         </div>
       </div>
       <div class="like">
-        <like :favNum='favNum' />
+        <like :favNum='favNum' :like='isLike' :index='index'/>
       </div>
     </header>
     <center class="home-center">
-      <movie :res='res' />
+      <movie :res='res' v-show="type==100"/>
+      <music :res='res' v-show="type==200"/>
+      <essay :res='res' v-show="type==300"/>
     </center>
-    <navi class="home-navi" :content='title' :isLeftdis='isLeftdis' :isRightdis='isRightdis'/>
+    <navi class="home-navi" 
+      :content='title' 
+      :isLeftdis='isLeftdis' 
+      :isRightdis='isRightdis'
+      @prv='prv'
+      @next='next'
+      />
   </div>
 </template>
 
 <script>
 import like from '../components/like'
 import movie from '../components/home/movie'
+import music from '../components/home/music'
+import essay from '../components/home/essay'
 import navi from '../components/home/navi'
-import { getNewest } from '../api/http'
+import { getNewest, getPrevious, getNext } from '../api/http'
 import { saveIndex, getIndex, saveMaxIndex, getMaxIndex } from '../utils/localStorage'
 export default {
   name: 'home',
   components: {
     like,
     movie,
-    navi
+    navi,
+    music,
+    essay
   },
   data () {
     return {
@@ -42,31 +54,46 @@ export default {
       dateArr:['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'],
       favNum: 0,
       title:'',
-      num:''
+      num:'',
+      type:0,
+      index:0,
+      isLike:false
     }
   },
   computed: {
     isLeftdis () {
-      return getIndex()>=getMaxIndex()
+      return this.index >= getMaxIndex()
     },
     isRightdis () {
-      return getIndex()<=1
+      return this.index <=1
+    }
+  },
+  watch: {
+    res (res) {
+      // console.log(res)
+      if (res!=null) {
+        this.setData(res)
+      }
     }
   },
   mounted () {
     getNewest().then((res)=>{
-      console.log(res)
-      let data = res.data
-      this.res = data
-      this.favNum = data.fav_nums
-      this.title = data.title
-      this.num = this.shift(data.index)
-      saveMaxIndex(data.index)
-      saveIndex(data.index)
+      // console.log(res)
+      this.res = res.data
+      saveMaxIndex(res.data.index)
     })
     this.getDate()
   },
   methods: {
+    setData (data) {
+      this.favNum = data.fav_nums
+      this.title = data.title
+      this.num = this.shift(data.index)
+      this.type = data.type
+      this.index = data.index
+      this.isLike = data.like_status===0?false:true
+      saveIndex(data.index,data)
+    },
     shift (num) {
       if(num<=9){
         return '0'+num
@@ -78,6 +105,32 @@ export default {
       let date = new Date()
       this.year = date.getFullYear()
       this.month = this.dateArr[date.getMonth()]
+    },
+    prv () {
+      if (!this.isRightdis) {
+        if (getIndex(this.index-1)){
+          this.res = getIndex(this.index-1)
+        }else{
+          getPrevious(this.index).then((res)=>{
+            this.res = res.data
+          })
+        }
+      }else{
+        this.$message('已经是第一期了呢');
+      }
+    },
+    next () {
+      if(!this.isLeftdis){
+        if (getIndex(this.index+1)){
+          this.res = getIndex(this.index+1)
+        }else{
+          getNext(this.index).then((res)=>{
+            this.res = res.data
+          })
+        }
+      }else{
+        this.$message('已经是最新一刊了哦');
+      }
     }
   }
 }

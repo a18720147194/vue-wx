@@ -19,17 +19,31 @@ export function getRes () {
 }
 
 export function saveMaxIndex (val) {
-  return setLocalStorage('index',val)
+  return setLocalStorage('maxIndex',val)
 }
 
 export function getMaxIndex () {
-  return getLocalStorage('index')
+  return getLocalStorage('maxIndex')
 }
 
-export function saveIndex (val) {
-  return setLocalStorage('index',val)
+export function saveIndex (index, val) {
+  return setLocalStorage('index-'+index,val)
 }
 
-export function getIndex () {
-  return getLocalStorage('index')
+export function getIndex (index) {
+  return getLocalStorage('index-'+index)
+}
+
+export function saveIndexLike (index, islike) {
+  return setLocalStorage('iike-'+index,islike)
+}
+export function getIndexLike (index) {
+  return getLocalStorage('iike-'+index)
+}
+
+export function savePath (url) {
+  return setLocalStorage('route-path',url)
+}
+export function getPath () {
+  return getLocalStorage('route-path')
 }

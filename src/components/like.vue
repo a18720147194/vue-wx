@@ -7,27 +7,41 @@
 <script>
 import imglike from '../assets/img/like/like.png'
 import imgunlike from '../assets/img/like/like@dis.png'
+import { saveIndexLike, getIndexLike } from '../utils/localStorage'
+
 export default {
   name:'like',
   props:{
-    favNum:Number
+    favNum:Number,
+    like:Boolean,
+    index:Number
   },
   data () {
     return {
-      like:false
+      islike:this.like
+    }
+  },
+  watch: {
+    index (val) {
+      if(getIndexLike(val)){
+        this.islike = getIndexLike(val)
+      }else{
+        this.islike = this.like
+      }
     }
   },
   computed:{
     src () {
-      return this.like?imglike:imgunlike
+      return this.islike?imglike:imgunlike
     },
     num () {
-      return this.like?this.favNum+1:this.favNum
+      return this.islike?this.favNum+1:this.favNum
     }
   },
   methods:{
     isLike  () {
-      this.like = !this.like
+      saveIndexLike(this.index,!this.islike)
+      this.islike = !this.islike
     }
   }
 }

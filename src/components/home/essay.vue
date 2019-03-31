@@ -1,13 +1,13 @@
 <template>
   <div class="movie">
     <div class="big"><img :src="imgSrc" /></div>
-    <div class="small"><img src="@/assets/img/text/movie.png" alt="" /></div>
+    <div class="small"><img src="@/assets/img/text/essay.png" alt="" /></div>
     <div class="text"> {{content}}</div>
   </div>
 </template>
 <script>
 export default {
-  name:'movie',
+  name:'essay',
   props:{
     res:Object
   },
