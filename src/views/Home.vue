@@ -78,9 +78,10 @@ export default {
   },
   mounted () {
     getNewest().then((res)=>{
-      // console.log(res)
       this.res = res.data
       saveMaxIndex(res.data.index)
+    }).catch((error)=>{
+      console.log(error)
     })
     this.getDate()
   },

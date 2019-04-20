@@ -58,6 +58,7 @@ export default {
 
 <style lang='scss'>
 .footer{
+  background: #fff;
   border-top: #f5f5f5 1px solid;
   width: 100%;
   position: fixed;
