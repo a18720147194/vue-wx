@@ -52,10 +52,15 @@ export function getBookDetail (id){
     url: `/apis/v1/book/${id}/detail?appkey=UQ2OrhuKYFDWSsFa`
   })
 }
-//book/<int:book_id>/short_comment
 export function getBookComment (id){
   return axios({
     method: 'get',
     url: `/apis/v1/book/${id}/short_comment?appkey=UQ2OrhuKYFDWSsFa`
+  })
+}
+export function getLikeClassic (){
+  return axios({
+    method: 'get',
+    url: `/apis/v1/classic/favor?appkey=UQ2OrhuKYFDWSsFa`
   })
 }

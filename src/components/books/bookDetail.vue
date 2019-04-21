@@ -48,7 +48,6 @@ export default {
     getBookDetail(id).then((res)=>{
       this.isGet = true
       this.bookDetail = res.data
-      console.log(res.data)
     })
     getBookComment(+id).then((res)=>{
       this.commentList = res.data.comments

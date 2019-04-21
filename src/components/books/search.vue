@@ -66,7 +66,6 @@ export default {
       this.input = str
       this.finished = true
       getSearchWord(str).then((res)=>{
-        console.log(res)
         this.searchList = res.data.books
       })
     },

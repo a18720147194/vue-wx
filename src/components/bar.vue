@@ -3,7 +3,7 @@
     <ul class="bar">
       <li @click.stop='classic'><router-link to='/classic'><img :src='imgc' alt=""><p>流行</p></router-link></li>
       <li @click.stop='book'><router-link to='/books'><img :src="imgb" alt=""><p>书籍</p></router-link></li>
-      <li @click.stop='my'><router-link to='/my'><img :src="imgm" alt=""><p>喜欢</p></router-link></li>
+      <li @click.stop='my'><router-link to='/my'><img :src="imgm" alt=""><p>我的</p></router-link></li>
     </ul>
   </footer>
 </template>
